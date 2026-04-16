@@ -3,11 +3,14 @@ import { AuthContext } from "../../context/AuthContext";
 import { use } from "react";
 
 const Register = () => {
-    const { signInWithGoogle } = use(AuthContext);
+    const { signInWithGoogle,setUser } = use(AuthContext);
 
     const handleGoogleLogin = () => {
         signInWithGoogle()
-            .then(result => console.log(result))
+            .then(result => {
+                console.log(result)
+                setUser(result.user)
+            })
             .catch(error => console.log(error))
     }
     return (
