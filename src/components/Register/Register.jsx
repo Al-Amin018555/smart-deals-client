@@ -6,9 +6,9 @@ const Register = () => {
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                 <div className="card-body">
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 text-center">
                         <h1 className="text-5xl font-bold">Register Now!</h1>
-                        <p className="text-center">Already have an account? <Link> Login now</Link> </p>
+                        <p>Already have an account? <Link to="/login"> Login now</Link> </p>
                     </div>
 
                     <fieldset className="fieldset">
