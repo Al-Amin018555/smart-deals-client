@@ -1,6 +1,7 @@
 import { use, useRef } from "react";
 import { Link, useLoaderData } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
     const { _id: productId, title, price_min, price_max, image } = useLoaderData();
@@ -36,6 +37,16 @@ const ProductDetails = () => {
             .then(res => res.json())
             .then(data => {
                 console.log("after bid", data);
+                bidModalRef.current.close()
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your bid has been placed",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+
             })
     }
     return (
@@ -88,7 +99,7 @@ const ProductDetails = () => {
                         <div className="modal-action">
                             <form method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
-                                <button className="btn">Close</button>
+                                <button className="btn">Cancel</button>
                             </form>
                         </div>
                     </div>
