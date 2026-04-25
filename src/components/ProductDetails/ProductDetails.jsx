@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductDetails = () => {
-    const {_id, title, price_min, price_max, image } = useLoaderData();
+    const { _id: productId, title, price_min, price_max, image } = useLoaderData();
     const { user, loading } = use(AuthContext);
     const bidModalRef = useRef(null);
     if (loading) return <p>loading...</p>
@@ -11,12 +11,32 @@ const ProductDetails = () => {
     const handleBidModalOpen = () => {
         bidModalRef.current.showModal()
     }
-    const handleBidSubmit = (e) =>{
+    const handleBidSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
-        const bid = e.target.bid.value;   
-        console.log(_id,name,email,bid);
+        const bid = e.target.bid.value;
+        console.log(productId, name, email, bid);
+
+        const newBid = {
+            product: productId,
+            buyer_name: name,
+            buyer_email: email,
+            bid_price: bid,
+            status: "pending",
+        }
+
+        fetch('http://localhost:3000/bids', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(newBid),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("after bid", data);
+            })
     }
     return (
         <div className="flex gap-6 my-10 justify-between flex-col md:flex-row">
@@ -46,8 +66,8 @@ const ProductDetails = () => {
 
                 </div>
                 <button
-                onClick={handleBidModalOpen}
-                className="btn btn-primary w-full">I Want Buy This Product</button>
+                    onClick={handleBidModalOpen}
+                    className="btn btn-primary w-full">I Want Buy This Product</button>
 
                 <dialog ref={bidModalRef} className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
