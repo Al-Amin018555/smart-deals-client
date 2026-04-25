@@ -46,7 +46,9 @@ const ProductDetails = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                setBids(data)
+                const newBids = [...bids, newBid]
+                newBids.sort((a, b) => b.bid_price - a.bid_price)
+                setBids(newBids)
 
             })
     }
@@ -142,7 +144,7 @@ const ProductDetails = () => {
                         <tbody>
 
                             {
-                                bids.map((bid,index) => <tr key={bid._id}>
+                                bids.map((bid, index) => <tr key={bid._id}>
                                     <th>
                                         {index + 1}
                                     </th>
