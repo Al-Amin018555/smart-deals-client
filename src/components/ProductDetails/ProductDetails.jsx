@@ -23,6 +23,7 @@ const ProductDetails = () => {
             product: productId,
             buyer_name: name,
             buyer_email: email,
+            buyer_image: user?.photURL,
             bid_price: bid,
             status: "pending",
         }
@@ -45,7 +46,7 @@ const ProductDetails = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-
+                setBids(data)
 
             })
     }
@@ -123,6 +124,56 @@ const ProductDetails = () => {
             </div>
             <div>
                 <h2 className="text-3xl">Bids for this product: {bids.length} </h2>
+
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>
+                                    SL NO
+                                </th>
+                                <th>Buyer Name</th>
+                                <th>Buyer Email</th>
+                                <th>Bid Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                bids.map((bid,index) => <tr key={bid._id}>
+                                    <th>
+                                        {index + 1}
+                                    </th>
+                                    <td>
+                                        <div className="flex items-center gap-3">
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle h-12 w-12">
+                                                    <img
+                                                        src={bid.buyer_image}
+                                                        alt={title} />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="font-bold">{bid.buyer_name}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {bid.buyer_email}
+                                    </td>
+                                    <td>{bid.bid_price}</td>
+                                    <th>
+                                        <button className="btn btn-ghost btn-xs">details</button>
+                                    </th>
+                                </tr>)
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
