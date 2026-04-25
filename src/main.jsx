@@ -10,6 +10,7 @@ import AuthProvider from "./context/AuthProvider";
 import MyProducts from "./components/MyProducts/MyProducts";
 import ProtectedRoutes from "./protected/ProtectedRoutes";
 import MyBids from "./components/MyBids/MyBids";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,12 @@ const router = createBrowserRouter([
       {
         path: 'register',
         Component: Register,
+      },
+      {
+        path: 'productDetails/:id',
+        loader: ({params}) => fetch(`http://localhost:3000/products/${params.id}`),
+        Component: ProductDetails,
+
       },
       {
         path: 'myProducts',
