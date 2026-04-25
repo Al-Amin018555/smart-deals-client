@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar/Navbar";
 
 const Root = () => {
     return (
-        <div className="max-w-7xl mx-auto">
+        <div>
             <Navbar></Navbar>
-            <Outlet></Outlet>
+            <div className="max-w-7xl mx-auto">
+                <Outlet></Outlet>
+            </div>
         </div>
     );
 };
