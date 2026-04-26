@@ -12,6 +12,7 @@ const ProductDetails = () => {
     const handleBidModalOpen = () => {
         bidModalRef.current.showModal()
     }
+    
     const handleBidSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
