@@ -65,7 +65,7 @@ const ProductDetails = () => {
     }, [productId])
 
     if (loading) return <p>loading...</p>
-
+   
     return (
         <div>
             <div className="flex gap-6 my-10 justify-between flex-col md:flex-row">
@@ -105,9 +105,9 @@ const ProductDetails = () => {
                             <form onSubmit={handleBidSubmit}>
                                 <fieldset className="fieldset">
                                     <label className="label">Buyer Name</label>
-                                    <input type="text" name="name" className="input w-full" readOnly defaultValue={user.displayName} />
+                                    <input type="text" name="name" className="input w-full" readOnly defaultValue={user?.displayName} />
                                     <label className="label">Email</label>
-                                    <input type="email" name="email" className="input w-full" readOnly defaultValue={user.email} />
+                                    <input type="email" name="email" className="input w-full" readOnly defaultValue={user?.email} />
                                     <label className="label">Place your Price</label>
                                     <input type="text" className="input w-full" name="bid" placeholder="price" />
                                     <button className="btn btn-neutral mt-4">Place Your Bid</button>

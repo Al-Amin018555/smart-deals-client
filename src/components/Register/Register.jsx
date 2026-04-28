@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { use } from "react";
 
 const Register = () => {
-    const { signInWithGoogle, setUser, createUser } = use(AuthContext);
+    const { signInWithGoogle, setUser, createUser, profileUpdate } = use(AuthContext); ``
 
     const handleRegister = e => {
         e.preventDefault();
@@ -14,8 +14,37 @@ const Register = () => {
         const password = form.password.value;
         console.log(name, email, photo, password);
 
-        createUser(email,password)
-            .then(result => console.log("user created succesffully ", result))
+        createUser(email, password)
+            .then(result => {
+                console.log("user created succesffully ", result)
+
+                const updatedProfile = {
+                    displayName: name,
+                    photoURL: photo,
+                }
+
+                profileUpdate(updatedProfile)
+                    .then(result => { console.log("profile udpdated successfully", result) })
+                    .catch(err => console.log(err))
+
+                const newUser = {
+                    name: name,
+                    email: email,
+                    photo: photo,
+
+                }
+
+                fetch('http://localhost:3000/users', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .catch(data => console.log(data))
+
+            })
             .catch(err => console.log(err))
 
     }
