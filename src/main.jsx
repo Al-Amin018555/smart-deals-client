@@ -31,8 +31,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'productDetails/:id',
-        loader: ({params}) => fetch(`http://localhost:3000/products/${params.id}`),
-        Component: ProductDetails,
+        loader: ({ params }) => fetch(`http://localhost:3000/products/${params.id}`),
+        element: <ProtectedRoutes> <ProductDetails></ProductDetails> </ProtectedRoutes>
 
       },
       {

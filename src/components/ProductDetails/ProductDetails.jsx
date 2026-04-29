@@ -12,7 +12,7 @@ const ProductDetails = () => {
     const handleBidModalOpen = () => {
         bidModalRef.current.showModal()
     }
-    
+
     const handleBidSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -55,17 +55,21 @@ const ProductDetails = () => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:3000/products/bids/${productId}`)
+        fetch(`http://localhost:3000/products/bids/${productId}`, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
                 setBids(data)
             })
 
-    }, [productId])
+    }, [productId, user])
 
     if (loading) return <p>loading...</p>
-   
+
     return (
         <div>
             <div className="flex gap-6 my-10 justify-between flex-col md:flex-row">
