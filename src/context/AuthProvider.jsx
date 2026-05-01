@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const profileUpdate = (updatedProfile) => {
-        return updateProfile(auth.currentUser,updatedProfile);
+        return updateProfile(auth.currentUser, updatedProfile);
     }
 
     const createUser = (email, password) => {
@@ -29,8 +29,26 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, user => {
-            setUser(user)
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser)
+            if (currentUser) {
+                const loggedUser = { email: currentUser.email };
+                fetch('http://localhost:3000/getToken', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(loggedUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("data after getting token", data)
+                        localStorage.setItem("token", data.token)
+                    })
+            }
+            else{
+                localStorage.removeItem("token");
+            }
             setLoading(false)
         });
         return () => unsubscribe();
